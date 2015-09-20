@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="warn">
+    <Properties>
+        <Property name="applogDir">../logs/yzd/app</Property>
+        <Property name="applogRollingFile">app.log</Property>
+		
+        <Property name="reqlogDir">../logs/yzd/req</Property>
+        <Property name="reqlogRollingFile">req.log</Property>
+        
+        <Property name="smslogDir">../logs/yzd/sms</Property>
+        <Property name="smslogRollingFile">sms.log</Property>
+    </Properties>
+    <appenders>
+        <RollingRandomAccessFile name="applogRollingFile" fileName="${applogDir}/${applogRollingFile}" append="true"
+                             filePattern="${applogDir}/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss z} %-5level %class{36} %L %M - %msg%n"/>
+            <Policies>
+            	<SizeBasedTriggeringPolicy size="25 MB"/>
+            </Policies>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="reqlogRollingFile" fileName="${reqlogDir}/${reqlogRollingFile}" append="true"
+                             filePattern="${reqlogDir}/$${date:yyyy-MM}/req-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss z} %msg%n"/>
+            <Policies>
+            	<SizeBasedTriggeringPolicy size="25 MB"/>
+            </Policies>
+        </RollingRandomAccessFile>
+        <RollingRandomAccessFile name="smslogRollingFile" fileName="${smslogDir}/${smslogRollingFile}" append="true"
+                             filePattern="${smslogDir}/$${date:yyyy-MM}/sms-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss z} %-5level %class{36} %L %M - %msg%n"/>
+            <Policies>
+            	<SizeBasedTriggeringPolicy size="25 MB"/>
+            </Policies>
+        </RollingRandomAccessFile>
+    </appenders>
+    
+    <loggers>
+    	<Logger name="applog" additivity="false" level="ALL" includeLocation="true">
+    		<AppenderRef ref="applogRollingFile" level="ALL" />
+        </Logger>
+        <Logger name="reqlog" additivity="false" level="ALL" includeLocation="false">
+            <AppenderRef ref="reqlogRollingFile" level="ALL" />
+        </Logger>
+        <Logger name="smslog" additivity="false" level="ALL" includeLocation="true">
+            <AppenderRef ref="smslogRollingFile" level="ALL" />
+        </Logger>
+    	<Root level="ALL" includeLocation="false">
+        </Root>
+    </loggers>
+</configuration>
